@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.mapper.StudentMapper">
+
+
+    <insert id="save"  keyProperty="id"  useGeneratedKeys="true" keyColumn="id" >
+        insert into student (id, name, age, email)  values (#{id} ,#{name}, #{age} ,#{email})
+    </insert>
+    <insert id="saveRoleAndPermission">
+        insert into student_course(student_id, course_id) values (#{student_id},#{permissionId})
+    </insert>
+    <update id="update">
+        update student set name = #{name} ,age = #{age} ,email = #{email} where id = #{id}
+    </update>
+    <delete id="delete">
+        delete from  student where  id = #{id}
+
+    </delete>
+
+
+
+    <delete id="deleteRoleAndPermissionRelation">
+        delete from student_course where student_id = #{id}
+
+    </delete>
+    <select id="selectOne" resultType="cn.wolfcode.domain.Student">
+        select distinct * from student where id = #{id}
+    </select>
+
+
+    <resultMap id="resultMap" type="cn.wolfcode.domain.Student">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="c_name" property="course.name"/>
+
+    </resultMap>
+
+    <select id="selectAll" resultMap="resultMap">
+        select distinct  s.id ,s.name ,s.age , s.email  ,  c.name as  c_name
+        from student_course ec
+        join student s
+        on s.id = ec.student_id
+        join course c on c.id = ec.course_id
+        order by c.score
+    </select>
+
+
+
+    <select id="queryForCount" resultType="java.lang.Integer">
+        select count(*) from student
+    </select>
+<!--    #         select s.id,s.name,s.email-->
+<!--    #         from student_course sc-->
+<!--    #         join student s-->
+<!--    #         on sc.student_id = s.id-->
+<!--    #         where sc.course_id = #{id}-->
+    <select id="selectRoleByEmpId" resultType="cn.wolfcode.domain.Student">
+
+        select c.id , c.name from
+         student_course sc
+         join
+         course c
+        where sc.student_id = #{id}
+
+    </select>
+</mapper>

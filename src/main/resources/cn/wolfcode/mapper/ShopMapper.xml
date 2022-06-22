@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cn.wolfcode.mapper.ShopMapper">
+
+    <resultMap id="baseRestultMap" type="cn.wolfcode.domain.Shop">
+        <id column="id" property="id"/>
+        <result property="name" column="s_name"/>
+        <result property="sn" column="s_sn"/>
+        <result property="status" column="s_status"/>
+        <result property="employee.id" column="e_id"/>
+        <result property="employee.name" column="e_name"/>
+        <association property="mall" javaType="cn.wolfcode.domain.Mall" columnPrefix="m_">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+
+    <sql id="base_field">
+        s.id,s.name s_name,s.admin s_admin,s.sn s_sn,s.status s_status,m.id m_id,m.name m_name,m.sn m_sn,e.id e_id,e.name e_name
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into shop (name,admin,sn,mall_id,status)
+        values (#{name},#{employee.id},#{sn},#{mall.id},#{status})
+    </insert>
+    <update id="update">
+        update shop
+        set name=#{name},admin=#{employee.id},sn=#{sn},mall_id=#{mall.id},status=#{status}
+        where id=#{id}
+    </update>
+    <delete id="deleteById">
+        delete from shop where id=#{id}
+    </delete>
+    <select id="selectOne" resultMap="baseRestultMap">
+        select s.id,s.name s_name,s.admin s_admin,s.sn s_sn,s.status s_status,m.id m_id,m.name m_name,m.sn m_sn,e.id e_id,e.name e_name
+        from  shop s
+        left join mall m
+        on s.mall_id = m.id
+        left join employee e
+        on e.id = s.admin
+        where s.id=#{id}
+    </select>
+
+
+
+    <select id="selectAll" resultMap="baseRestultMap">
+        select <include refid="base_field"/>
+        from  shop s
+        left join mall m
+        on s.mall_id = m.id
+        left join employee e
+        on e.id = s.admin
+        ORDER BY s.id asc
+    </select>
+    <select id="selectForCount" resultType="java.lang.Integer">
+         select count(id) from shop
+    </select>
+<!--    <select id="query" resultMap="baseRestultMap">-->
+<!--        select <include refid="base_field"/>-->
+<!--        from  shop s-->
+<!--        left join mall m-->
+<!--        on s.mall_id = m.id-->
+<!--        left join employee e-->
+<!--        on e.id = s.admin-->
+<!--        ORDER BY s.id asc-->
+<!--    </select>-->
+
+    <select id="selectShopByMallId" resultMap="baseRestultMap">
+        select <include refid="base_field"/>
+        from shop s
+        left join mall m
+        on s.mall_id = m.id
+        left join employee e
+        on e.id = s.admin
+        <where>
+        mall_id in
+        <foreach collection="malls" item="mall" open="(" separator="," close=")">
+            #{mall.id}
+        </foreach>
+        </where>
+    </select>
+
+
+</mapper>

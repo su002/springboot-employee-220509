@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.wolfcode.mapper.CourseMapper">
+    <insert id="save">
+        insert into course(id, name, author, score)
+        values (#{id}, #{name}, #{author}, #{score});
+    </insert>
+
+    <insert id="saveRoleAndPermission">
+        insert into student_course(student_id, course_id)
+        values (#{roleId}, #{permissionId})
+    </insert>
+
+    <delete id="delete">
+        delete
+        from course
+        where id = #{id}
+    </delete>
+
+    <delete id="deleteRoleAndPermissionRelation">
+        delete
+        from student_course
+        where student_id = #{id}
+    </delete>
+
+    <update id="update">
+        update course
+        set name   = #{name},
+            author = #{author},
+            score  = #{score}
+        where id  = #{id}
+    </update>
+
+    <select id="selectOne" resultType="cn.wolfcode.domain.Course">
+        select *
+        from course
+        where id = #{id}
+    </select>
+
+
+
+
+
+    <resultMap id="resultMap" type="cn.wolfcode.domain.Course">
+        <collection property="studentList"
+                    select="com.cn.wolfcode.mapper.CourseMapper.selectCommodityList"
+                    column="id"/>
+    </resultMap>
+
+
+    <resultMap id="baseMap" type="cn.wolfcode.domain.Course">
+        <result property="id" column="c_id"/>
+        <result property="name" column="c_name"/>
+        <result property="num" column="count"/>
+
+    </resultMap>
+    <select id="selectCount" resultMap="baseMap">
+        select c.id as c_id , c.name c_name ,count(s.id) as count
+        from course c
+        left join student_course sc on sc.course_id = c.id
+        left join student s on sc.student_id = s.id
+        where c.id in
+        <foreach collection="courses" item="course" open="(" separator="," close=")">
+            #{course.id}
+        </foreach>
+    </select>
+
+    <select id="selectAll" resultType="cn.wolfcode.domain.Course">
+        select * from course
+    </select>
+
+    <select id="queryForCount" resultType="java.lang.Integer">
+        select count(*)
+        from course
+    </select>
+
+    <select id="selectRoleByEmpId" resultType="cn.wolfcode.domain.Course">
+        select c.id, c.name
+        from student_course sc
+                 join course c
+                      on sc.course_id = c.id
+        where sc.student_id = #{id}
+    </select>
+
+    <select id="selectStudentNum" resultType="integer">
+        SELECT count(student_id)
+        FROM student_course sc
+                 JOIN
+             course c
+             on
+                 c.id = sc.course_id
+        WHERE c.id = #{id}
+    </select>
+
+    <select id="selectCourseAndStudents" resultType="cn.wolfcode.domain.Student">
+        SELECT s.id, s.name, s.email, s.age
+        FROM student_course sc
+                 JOIN
+             student s
+             on
+                 s.id = sc.student_id
+        where sc.course_id = #{id}
+    </select>
+</mapper>

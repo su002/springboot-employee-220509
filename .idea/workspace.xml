@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b1455999-da66-42cc-8c84-4968c5dfe072" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Mybatis Mapper" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/JavaStudy/Maven/apache-maven-3.8.4" />
+        <option name="useMavenConfig" value="true" />
+        <option name="userSettingsFile" value="D:\JavaStudy\Maven\apache-maven-3.8.4\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="jreName" value="1.8" />
+    <option name="vmOptions" value="-DarchetypeCatalog=internal" />
+  </component>
+  <component name="ProjectId" id="296GvbKAaNPpaXC1K6BOLMICZTU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowBuild.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.16113281" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RebelAgentSelection">
+    <selection>jr</selection>
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\JavaWebxm\eta\src\main\resources\static" />
+      <recent name="E:\JavaWebxm\eta\src\main\resources\cn\wolfcode\mapper" />
+      <recent name="E:\JavaWebxm\eta\src\main\resources\static\resources\js" />
+      <recent name="E:\JavaWebxm\eta\src\main\resources\static\resources\img" />
+      <recent name="E:\JavaWebxm\eta\src\main\resources\static\resources\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\javaweb项目\ agenciasystem\src\main\resources" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.wolfcode.mapper" />
+      <recent name="cn.wolfcode.service.impl" />
+      <recent name="cn.wolfcode.service" />
+      <recent name="cn.wolfcode.domain" />
+      <recent name="cn.wolfcode.util" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.etaApplication">
+    <configuration name="DepartmentMapperTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="springboot-employee-220509" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cn.wolfcode.mapper.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="cn.wolfcode.mapper" />
+      <option name="MAIN_CLASS_NAME" value="cn.wolfcode.mapper.DepartmentMapperTest" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test111.shou" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="agenciasystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com" />
+      <option name="MAIN_CLASS_NAME" value="com.Test111" />
+      <option name="METHOD_NAME" value="shou" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmploymentApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="agenciasystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bjpowernode.employment.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.bjpowernode.employment.EmploymentApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringbootSsm2220408Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="springboot-employee-220509" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="cn.SpringbootSsm2220408Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="etaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="eta" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cn.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="cn.etaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="JUnit.DepartmentMapperTest.test" />
+      <item itemvalue="JUnit.Test111.shou" />
+      <item itemvalue="Spring Boot.SpringbootSsm2220408Application" />
+      <item itemvalue="Spring Boot.EmploymentApplication" />
+      <item itemvalue="Spring Boot.etaApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.etaApplication" />
+        <item itemvalue="Spring Boot.EmploymentApplication" />
+        <item itemvalue="JUnit.Test111.shou" />
+        <item itemvalue="JUnit.DepartmentMapperTest.test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b1455999-da66-42cc-8c84-4968c5dfe072" name="Changes" comment="" />
+      <created>1652426356727</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1652426356727</updated>
+      <workItem from="1652426356727" duration="244000" />
+      <workItem from="1652747802877" duration="2176000" />
+      <workItem from="1652833822054" duration="24224000" />
+      <workItem from="1652920356903" duration="12843000" />
+      <workItem from="1652943300622" duration="21000" />
+      <workItem from="1652943654603" duration="9000" />
+      <workItem from="1652971113178" duration="13888000" />
+      <workItem from="1653056368748" duration="2163000" />
+      <workItem from="1653058669019" duration="499000" />
+      <workItem from="1653265544827" duration="12895000" />
+      <workItem from="1653352462790" duration="1270000" />
+      <workItem from="1653354364946" duration="5345000" />
+      <workItem from="1653372556304" duration="174000" />
+      <workItem from="1653372768198" duration="12110000" />
+      <workItem from="1653398620398" duration="3946000" />
+      <workItem from="1653442717250" duration="18050000" />
+      <workItem from="1653525478183" duration="80000" />
+      <workItem from="1653525647553" duration="5200000" />
+      <workItem from="1653569693081" duration="9803000" />
+      <workItem from="1653751189985" duration="219000" />
+      <workItem from="1653804702493" duration="445000" />
+      <workItem from="1653816686678" duration="834000" />
+      <workItem from="1655208283614" duration="431000" />
+      <workItem from="1655255405751" duration="3187000" />
+      <workItem from="1655263062623" duration="1334000" />
+      <workItem from="1655357050879" duration="946000" />
+      <workItem from="1655388336553" duration="396000" />
+      <workItem from="1655869888990" duration="1448000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/../../javaweb项目/ agenciasystem/src/main/java/com/bjpowernode/employment/controller/EmploymentInfoController.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.apache.catalina.session.StandardSession" memberName="attributes" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/springboot_employee_220509$SpringbootSsm2220408Application.ic" NAME="SpringbootSsm2220408Application Coverage Results" MODIFIED="1653267725644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/springboot_employee_220509$EmploymentApplication.ic" NAME="EmploymentApplication Coverage Results" MODIFIED="1653383935187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.bjpowernode.employment.*</FILTER>
+    </SUITE>
+  </component>
+</project>

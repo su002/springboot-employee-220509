@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.mapper.WarehouseMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert
+        into warehouse (address,tel,num,product_id)
+        values (#{address},#{tel},#{num},#{product.id})
+    </insert>
+    <update id="update">
+        update warehouse
+        set address=#{address},tel=#{tel},num=#{num},product_id = #{product.id}
+        where id=#{id}
+    </update>
+    <delete id="deleteById">
+        delete from warehouse where id=#{id}
+    </delete>
+
+    <resultMap id="baseRestultMap" type="cn.wolfcode.domain.Warehouse">
+    <id column="id" property="id"/>
+    <result property="address" column="address"/>
+    <result property="tel" column="tel"/>
+        <result property="num" column="num"/>
+        <association property="product" javaType="cn.wolfcode.domain.Product" columnPrefix="p_">
+            <result property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="num" column="num"/>
+        </association>
+
+    </resultMap>
+
+    <sql id="base_field">
+        w.id,w.address,w.tel,w.num,p.id p_id,p.name p_name
+    </sql>
+
+    <select id="selectOne" resultMap="baseRestultMap">
+        select w.id,w.address,w.tel,w.num,p.id p_id,p.name p_name
+        from warehouse w
+        left join product p
+        on w.product_id = p.id
+        where w.id = #{id}
+    </select>
+    <select id="selectAll" resultMap="baseRestultMap">
+        select w.id,w.address,w.tel,w.num,p.id p_id,p.name p_name
+        from warehouse w
+        left join product p
+        on w.product_id = p.id
+        ORDER BY w.id asc
+    </select>
+    <select id="selectForCount" resultType="java.lang.Integer">
+         select count(id) from warehouse
+    </select>
+   <!-- <select id="query" resultMap="baseRestultMap">
+       select w.id,w.address,w.tel,w.num,p.id p_id,p.name p_name
+        from warehouse w
+      left join product p
+        on w.product_id = p.id
+        ORDER BY w.id asc
+         limit #{startIndex},#{pageSize}
+    </select>-->
+
+
+    <!--根据商品ID查库存-->
+    <select id="selectWarehouseByProduceId" resultMap="baseRestultMap">
+        SELECT <include refid="base_field"/>
+        FROM warehouse w
+         left JOIN product p
+        ON w.product_id = p.id
+        <where>
+            w.product_id in
+            <foreach collection="products" item="product" open="(" separator="," close=")">
+                #{product.id}
+            </foreach>
+        </where>
+    </select>
+
+
+
+
+</mapper>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生课程管理</title>
+</head>
+<body class="hold-transition skin-black sidebar-mini">
+    <div th:replace="common/fragment :: link"></div>
+    <div class="wrapper">
+        <div th:replace="common/fragment :: navbar"></div>
+        <div th:replace="common/fragment :: menu"></div>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>学生课程编辑</h1>
+            </section>
+            <section class="content">
+                <div class="box">
+                    <form class="form-horizontal" action="/course/saveOrUpdate" method="post" id="editForm">
+                        <input type="hidden" name="id" th:value="${roles?.id}">
+                        <div class="form-group"  style="margin-top: 10px;">
+                            <label  class="col-sm-2 control-label">学生课程名称：</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="name" th:value="${roles?.name}" placeholder="请输入课程名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">学生课程作者：</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="author" th:value="${roles?.author}" placeholder="请输入课程作者">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">课程分数：</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" name="score" th:value="${roles?.score}" placeholder="请输入课程作者">
+                            </div>
+                        </div>
+<!--                        <div class="form-group " id="role">-->
+<!--                            <label for="role" class="col-sm-2 control-label">分配权限：</label><br/>-->
+<!--                            <div class="row" style="margin-top: 10px">-->
+<!--                                <div class="col-sm-2 col-sm-offset-2">-->
+<!--                                    <select multiple class="form-control allPermissions" style="height: 350px;" size="15">-->
+<!--                                        <option th:each="permission:${permissions}"-->
+<!--                                                th:text="${permission.name}"-->
+<!--                                                th:value="${permission.id}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-1" style="margin-top: 60px;" align="center">-->
+<!--                                    <div>-->
+<!--                                        <a type="button" class="btn btn-primary" style="margin-top: 10px" title="右移动"-->
+<!--                                           onclick="moveSelected('allPermissions', 'selfPermissions')">-->
+<!--                                            <span class="glyphicon glyphicon-menu-right"></span>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <a type="button" class="btn btn-primary " style="margin-top: 10px" title="左移动"-->
+<!--                                           onclick="moveSelected('selfPermissions', 'allPermissions')">-->
+<!--                                            <span class="glyphicon glyphicon-menu-left"></span>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <a type="button" class="btn btn-primary " style="margin-top: 10px" title="全右移动"-->
+<!--                                           onclick="moveAll('allPermissions', 'selfPermissions')">-->
+<!--                                            <span class="glyphicon glyphicon-forward"></span>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <a type="button" class="btn btn-primary " style="margin-top: 10px" title="全左移动"-->
+<!--                                           onclick="moveAll('selfPermissions', 'allPermissions')">-->
+<!--                                            <span class="glyphicon glyphicon-backward"></span>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-sm-2">-->
+<!--                                    <select multiple class="form-control selfPermissions" style="height: 350px;" size="15" name="permissionIds">-->
+<!--                                        <option th:each="permission:${ownPermissions}"-->
+<!--                                                th:value="${permission.id}"-->
+<!--                                                th:text="${permission.name}">-->
+<!--                                        </option>-->
+
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-6">
+                                <button type="submit" class="btn btn-primary btn-submit">保存</button>
+                                <a href="javascript:window.history.back()" class="btn btn-danger">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div replace="common/fragment :: footer"></div>
+    </div>
+
+    <script>
+        function moveAll(srcClass, targetClass) {
+            $('.' + targetClass).append($('.' + srcClass + ' > option'));
+        }
+        function moveSelected(srcClass, targetClass) {
+            $('.' + targetClass).append($('.' + srcClass + ' > option:selected'));
+        }
+
+        $('.btn-submit').click(function () {
+            $('.selfPermissions > option').prop('selected', true);
+            // 找到表单提交
+            $('#editForm').submit();
+        });
+
+        $(function () {
+            var arr = [];
+            // 获取右边下拉框中所有 option 的 value 属性值, 存到数组
+            $('.selfPermissions > option').each(function (i, domEle) {
+                arr.push($(domEle).val());
+            });
+            // 遍历左边下拉框中的 option , 若 option value 在上面数组存在, 则删除对应 option
+            $('.allPermissions > option').each(function (i, domEle) {
+                var $option = $(domEle);
+                var val = $option.val();
+                if($.inArray(val, arr) >= 0) { // 存在
+                    $option.remove();
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

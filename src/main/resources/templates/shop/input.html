@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>店铺管理</title>
+</head>
+<body class="hold-transition skin-black sidebar-mini">
+    <div th:replace="common/fragment :: link"></div>
+    <div class="wrapper">
+        <div th:replace="common/fragment :: navbar"></div>
+        <div th:replace="common/fragment :: menu"></div>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>店铺编辑</h1>
+            </section>
+            <section class="content">
+                <div class="box">
+                    <form class="form-horizontal" action="/shop/saveOrUpdate" method="post" id="editForm">
+                        <input type="hidden" th:value="${shop?.id}" name="id">
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label for="name" class="col-sm-1 control-label">名称：</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="name" name="name" th:value="${shop?.name}"
+                                       placeholder="请输入店铺名">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label for="sn" class="col-sm-1 control-label">编码：</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control" id="sn" name="sn" th:value="${shop?.sn}"
+                                       placeholder="请输入店铺编码">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label  class="col-sm-1 control-label">状态：</label>
+                            <div class="col-sm-4">
+                                <input name="status" type="checkbox" data-size="small" value="1"  th:checked="${shop?.status==1}">
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label for="employee.id" class="col-sm-1 control-label">所属商城：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="mall.id" id="mall.id">
+                                    <option value="">全部</option>
+                                    <option th:each="mall:${malls}"
+                                            th:value="${mall?.id}"
+                                            th:text="${mall?.name}"
+                                            th:selected="${shop?.mall?.id == mall?.id}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 10px;">
+                            <label for="employee.id" class="col-sm-1 control-label">店铺管理员：</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="employee.id" id="employee.id">
+                                    <option value="">全部</option>
+                                    <option th:each="employee:${employees}"
+                                            th:value="${employee?.id}"
+                                            th:text="${employee?.name}"
+                                            th:selected="${employee?.id == shop?.employee?.id}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-6">
+                                <button id="submitBtn" type="submit" class="btn btn-primary">保存</button>
+                                <button type="reset" class="btn btn-danger">重置</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div th:replace="common/fragment :: footer"></div>
+    </div>
+    <script>
+        $("#editForm").bootstrapValidator({
+            feedbackIcons: { // 图标
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields:{ // 配置要验证的字段
+                name:{
+                    validators:{ // 验证的规则
+                        notEmpty:{ // 不能为空
+                            message:"名称必填" // 错误时的提示信息
+                        },
+                        stringLength: { // 字符串的长度范围
+                            min: 1,
+                            max: 5
+                        }
+                    }
+                },
+                sn:{
+                    validators:{
+                        notEmpty:{ // 不能为空
+                            message:"编号必填" // 错误时的提示信息
+                        }
+                    }
+                }
+            }
+        })/*.on('success.form.bv', function(e) {
+            // TODO 这里可以改成用异步的方式提交表单
+            e.preventDefault(); // 阻止默认事件
+            // Get the form instance
+            var $form = $("#editForm");
+            // Use Ajax to submit form data
+            $.post('/employee/saveOrUpdate', $form.serialize(), function(data) {
+                if(data.success) {
+                    location.href = '/employee/list';
+                } else {
+                    alert(data.msg);
+                }
+            });
+        });*/
+    </script>
+</body>
+</html>

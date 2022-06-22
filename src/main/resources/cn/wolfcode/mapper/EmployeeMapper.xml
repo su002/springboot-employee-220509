@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.wolfcode.mapper.EmployeeMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into employee (name,age,email,admin,password,deptId)
+        values (#{name}, #{password}, #{email}, #{age}, #{admin}, #{dept.id});
+    </insert>
+    <insert id="saveEmployeeAndRole" >
+        insert into employee_role (employee_id,role_id) values (#{employee.id},#{role.id})
+    </insert>
+
+    <update id="update" parameterType="cn.wolfcode.domain.Employee">
+        update employee set
+        name=#{name},age=#{age},email=#{email},password=#{password},admin=#{admin},deptId=#{dept.id}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="cn.wolfcode.domain.Employee">
+        delete from employee where id = #{id}
+    </delete>
+    <delete id="batchDeleteById" parameterType="cn.wolfcode.domain.Employee">
+     delete from employee
+     <where>
+         id in
+         <foreach collection="empIds" item="empId" open="(" separator="," close=")">
+             #{empId}
+         </foreach>
+     </where>
+    </delete>
+    <delete id="deleteEmployeeAndEmpRole">
+        delete from employee_role where employee_id = #{id}
+    </delete>
+
+    <resultMap id="baseRestultMap" type="cn.wolfcode.domain.Employee">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="admin" column="admin"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <association property="dept" javaType="cn.wolfcode.domain.Department" columnPrefix="d_">
+            <result property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="sn" column="sn"/>
+        </association>
+       <!-- <result property="dept.id" column="d_id"/>-->
+    </resultMap>
+
+    <sql id ="where_sql">
+        <where>
+            <if test="keyword != null and keyword !='' ">
+                and e.name like concat('%',#{keyword},'%')
+            </if>
+            <if test="deptId != null and deptId > 0 ">
+                and e.deptId = #{deptId}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="base_field">
+        e.id, e.name, e.age,e.email,e.password,e.admin,d.id d_id, d.name d_name,d.sn d_sn
+    </sql>
+    
+    <select id="selectAll" resultMap="baseRestultMap">
+      select e.id, e.name, e.age,e.email,e.password,e.admin,d.id d_id, d.name d_name,d.sn d_sn
+      from employee e left join department d
+      on e.deptId = d.id
+        <include refid="where_sql"/>
+        ORDER BY id asc
+    </select>
+
+
+    <select id="selectOne" resultMap="baseRestultMap">
+     select <include refid="base_field"/>
+      from employee e
+      left join department d
+      on e.deptId = d.id
+      where e.id=#{id}
+    </select>
+
+
+
+    <select id="selectForCount" resultType="java.lang.Integer">
+        select count(*) from employee e
+        <include refid="where_sql"/>
+    </select>
+
+</mapper>

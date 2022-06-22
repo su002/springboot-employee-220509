@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.wolfcode.mapper.ProductMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into product (name,sn,num,shop_id,status)
+        values (#{name},#{sn},#{num},#{shop.id},#{status})
+    </insert>
+
+    <update id="update" parameterType="cn.wolfcode.domain.Product">
+        update product
+        set name=#{name},sn=#{sn},num=#{num},shop_id = #{shop.id},status=#{status}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="cn.wolfcode.domain.Product">
+        delete from product where id = #{id}
+    </delete>
+
+    <resultMap id="baseRestultMap" type="cn.wolfcode.domain.Product">
+        <id property="id" column="id"/>
+        <result property="name" column="p_name"/>
+        <result property="sn" column="p_sn"/>
+        <result property="num" column="p_num"/>
+        <result property="status" column="p_status"/>
+        <association property="shop" javaType="cn.wolfcode.domain.Shop" columnPrefix="s_">
+            <result property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+
+       <!-- <result property="dept.id" column="d_id"/>-->
+    </resultMap>
+
+    <sql id="base_field">
+        p.id,p.name p_name,p.sn p_sn,p.num p_num,p.status p_status,s.id s_id,s.name s_name
+    </sql>
+
+    <select id="selectAll" resultMap="baseRestultMap">
+      select p.id,p.name p_name,p.sn p_sn,p.num p_num,p.status p_status,s.id s_id,s.name s_name
+      from product p
+      join shop s
+      on p.shop_id = s.id
+        <include refid="where_sql"/>
+        ORDER BY id asc
+    </select>
+
+
+    <select id="selectOne" resultMap="baseRestultMap">
+      select <include refid="base_field"/>
+      from product p
+      join shop s
+      on p.shop_id = s.id
+      where p.id=#{id}
+    </select>
+
+  <sql id ="where_sql">
+      <where>
+          <if test="keyword != null and keyword !='' ">
+              and (p.name like concat('%',#{keyword},'%') or s.name like concat('%',#{keyword},'%'))
+          </if>
+          <if test="shop_id != null and shop_id > 0 ">
+              and p.shop_id = #{shop_id}
+          </if>
+          <if test="minNum != null and minNum > 0">
+              and p.num &gt;= #{minNum}
+          </if>
+          <if test="maxNum != null and maxNum > 0">
+              and p.num &lt;= #{maxNum}
+          </if>
+          <if test="status != null and status >= 0">
+              and p.status = #{status}
+          </if>
+      </where>
+  </sql>
+
+    <select id="selectForCount" resultType="java.lang.Integer">
+        select count(p.id)
+        from product p
+        join shop s
+        on p.shop_id = s.id
+        <include refid="where_sql"/>
+    </select>
+    <!--<select id="query" resultMap="baseRestultMap" >
+        select <include refid="base_field"/>
+        from product p
+        left join shop s
+        on p.shop_id = s.id
+        <include refid="where_sql"/>
+        ORDER BY id asc
+         limit #{startIndex},#{pageSize}
+    </select>-->
+
+
+    <!--根据店铺id查商品-->
+    <select id="selectProductByShopId" resultMap="baseRestultMap">
+        select <include refid="base_field"/>
+        from product p
+        left  join shop s
+        on p.shop_id = s.id
+        <where>
+            shop_id in
+            <foreach collection="shops" item="shop" open="(" separator="," close=")">
+                #{shop.id}
+            </foreach>
+        </where>
+
+    </select>
+
+
+    <resultMap id="shopProductNum" type="cn.wolfcode.domain.Shop">
+        <result property="id" column="id"/>
+        <result property="name" column="s_name"/>
+        <result property="productCount" column="shopProductNum"/>
+     </resultMap>
+
+    <resultMap id="mallProductNum" type="cn.wolfcode.domain.Mall">
+        <result property="id" column="id"/>
+        <result property="name" column="m_name"/>
+        <result property="productCount" column="mallProductNum"/>
+    </resultMap>
+
+    <select id="selectProductCountByShopId" resultMap="shopProductNum">
+        select s.id,s.name s_name,sum(w.num) shopProductNum
+        from shop s
+        join product p on p.shop_id = s.id
+        join warehouse w on w.product_id = p.id
+        where s.id in
+        <foreach collection="shops" item="shop" open="("  separator="," close=")">
+            #{shop.id}
+        </foreach>
+        group by s.id
+    </select>
+
+    <select id="selectProductCountByMallId" resultMap="mallProductNum">
+        select m.id,m.name m_name,sum(w.num) mallProductNum
+        from mall m
+        left  join shop s on s.mall_id = m.id
+        left join product p on p.shop_id = s.id
+        left join warehouse w on w.product_id = p.id
+        where m.id in
+        <foreach collection="malls" item="mall" open="("  separator="," close=")">
+            #{mall.id}
+        </foreach>
+        group by m.id
+    </select>
+
+</mapper>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>部门管理</title>
+</head>
+<body class="hold-transition skin-black sidebar-mini">
+    <div th:replace="common/fragment :: link"></div>
+    <div class="wrapper">
+        <div th:replace="common/fragment :: navbar"></div>
+        <div th:replace="common/fragment :: menu"></div>
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>部门管理</h1>
+            </section>
+            <section class="content">
+                <div class="box">
+                    <!--高级查询--->
+                    <form class="form-inline" id="searchForm" action="/department/list" method="post">
+                        <input type="hidden" name="currentPage" id="currentPage" value="1">
+                        <a href="#" class="btn btn-success btn-input" style="margin: 10px">
+                            <span class="glyphicon glyphicon-plus"></span> 添加
+                        </a>
+                    </form>
+                    <script>
+                        $(function () {
+                            $('.btn-input').click(function () {
+                                // 获取编辑按钮上 data-json 属性值
+                                var data = $(this).data('json');
+                                console.log(data);
+                                // 清除模态框中 input value 属性值
+                                $('#myModal input[name]').val('');
+                                if(data) { // 修改时才回显数据
+                                    // 把数据回显模态框中
+                                    $('input[name=id]').val(data.id);
+                                    $('input[name=name]').val(data.name);
+                                    $('input[name=sn]').val(data.sn);
+                                }
+                                $('#myModal').modal('show');
+                            });
+                        });
+                    </script>
+                    <!--编写内容-->
+                    <div class="box-body table-responsive ">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>部门名称</th>
+                                <th>部门编号</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="data:${pageInfo?.list}">
+                                    <td th:text="${data?.id}">1</td>
+                                    <td th:text="${data?.name}">开发部</td>
+                                    <td th:text="${data?.sn}">DEV</td>
+                                    <td>
+                                        <a href="#" class="btn btn-info btn-xs btn-input" th:data-json="${data.json}">
+                                            <span class="glyphicon glyphicon-pencil"></span> 编辑
+                                        </a>
+                                        <a class="btn btn-danger btn-xs btn-delete"
+                                           th:data-url="|/department/delete?id=${data?.id}|">
+                                            <span class="glyphicon glyphicon-trash"></span> 删除
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div th:replace="common/fragment :: page"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div th:replace="common/fragment :: footer"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">部门编辑</h4>
+                </div>
+                <form action="/department/saveOrUpdate" method="post">
+                    <input type="hidden" name="id">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="dname">名称</label>
+                            <input type="text" class="form-control" id="dname" name="name" placeholder="名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="dsn">缩写</label>
+                            <input type="text" class="form-control" id="dsn" name="sn" placeholder="缩写">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

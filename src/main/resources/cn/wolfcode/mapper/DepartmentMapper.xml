@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.wolfcode.mapper.DepartmentMapper">
+
+
+    <insert id="insertRole">
+        insert into  permission(expression) values (#{expression})
+    </insert>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert department (name,sn) values (#{name},#{sn})
+    </insert>
+    <update id="update">
+        update department set name =#{name},sn=#{sn} where id=#{id}
+    </update>
+    <delete id="delete">
+        delete from department where id = #{id}
+    </delete>
+
+    <select id="selectAll" resultType="cn.wolfcode.domain.Department">
+        select * from department
+        ORDER BY id asc
+    </select>
+    <select id="selectOne" resultType="cn.wolfcode.domain.Department">
+        select *from department where id=#{id}
+    </select>
+
+    <select id="selectForCount" resultType="java.lang.Integer">
+        select count(*) from department
+    </select>
+
+
+    <select id="selectRoleAll" resultType="string">
+        select expression from permission
+
+    </select>
+    <update id="updateRole">
+        update  permission set  expression=#{permission} where name=#{name}
+    </update>
+
+</mapper>
